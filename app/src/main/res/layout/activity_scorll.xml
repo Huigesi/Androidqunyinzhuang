@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".section5.ScorllActivity">
+    <me.huigesi.androidqunyinzhuang.section5.DragView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorAccent"
+        android:dividerHeight="10dp"
+        android:scrollbars="none"
+        android:listSelector="#00000000"></ListView>
+
+</LinearLayout>
