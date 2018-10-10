@@ -1,6 +1,9 @@
 package me.huigesi.androidqunyinzhuang.section5;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.ViewDragHelper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +13,57 @@ import android.widget.Scroller;
 public class DragView extends View {
     int lastX, lastY;
     Scroller mScroller = new Scroller(getContext());
+    View mMainView;
+    ViewDragHelper mViewDragHelper;
+    private ViewDragHelper.Callback callback=new ViewDragHelper.Callback() {
+        @Override
+        public boolean tryCaptureView(@NonNull View view, int i) {
+            return mMainView==view;
+        }
+
+        @Override
+        public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
+            return left;
+        }
+
+        @Override
+        public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
+            return 0;
+        }
+
+        @Override
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
+            super.onViewReleased(releasedChild, xvel, yvel);
+            if (mMainView.getLeft() < 500) {
+                mViewDragHelper.smoothSlideViewTo(
+                        mMainView, 0, 0
+                );
+                ViewCompat.postInvalidateOnAnimation(DragView.this);
+            }else {
+                mViewDragHelper.smoothSlideViewTo(mMainView, 300, 0);
+                ViewCompat.postInvalidateOnAnimation(DragView.this);
+            }
+        }
+    };
 
     public DragView(Context context) {
         super(context);
+         //mViewDragHelper=ViewDragHelper.create(DragView.this,callback);
     }
+
+
 
     @Override
     public void computeScroll() {
-        super.computeScroll();
+        /*super.computeScroll();
         if (mScroller.computeScrollOffset()) {
             ((View) getParent()).scrollTo(
                     mScroller.getCurrX(),
                     mScroller.getCurrY());
             invalidate();
+        }*/
+        if (mViewDragHelper.continueSettling(true)) {
+            ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 
