@@ -108,3 +108,35 @@
     setLayoutParams(layoutParams);
 
 #### 5.2.4 scrollTo与scrollBy
+
+因为scrollBy方法移动的是View的content，所以应该就View所在的ViewGroup中来使用scrollBy方法。
+
+而设置scrollBy时存在参考系选择的问题，所以需要给偏移量加上负号。
+
+    ((View)getParent()).scrollBy(-offsetX,-offsetY);
+
+
+#### 5.2.5 Scroller
+
+通过Scroller类可以实现平滑移动的效果，scrollBy是瞬间移动。
+
+                case MotionEvent.ACTION_UP:
+                    View viewGroup = ((View) getParent());
+                    mScroller.startScroll(
+                            viewGroup.getScrollX(),
+                            viewGroup.getScrollY(),
+                            -viewGroup.getScrollX(),
+                            -viewGroup.getScrollY()
+                    );
+                    invalidate();
+                    break;
+
+#### 5.2.6 属性动画
+
+第7章中讲。
+
+#### 5.2.7 ViewDragHelper
+
+ViewDragHelper基本可以实现各种不同的滑动、拖放需求。
+
+演示了一个QQ滑动侧边栏的布局案例。
