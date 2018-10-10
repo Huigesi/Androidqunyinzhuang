@@ -1,10 +1,13 @@
 package me.huigesi.androidqunyinzhuang;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+
+import me.huigesi.androidqunyinzhuang.section5.DragViewGroup;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DragViewGroup dragViewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });*/
+        initView();
+    }
+
+    private void initView() {
+        dragViewGroup = (DragViewGroup) findViewById(R.id.dragViewGroup);
     }
 }

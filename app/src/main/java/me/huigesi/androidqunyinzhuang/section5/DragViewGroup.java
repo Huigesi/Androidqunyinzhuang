@@ -60,7 +60,7 @@ public class DragViewGroup extends FrameLayout{
     }
     private ViewDragHelper.Callback callback=new ViewDragHelper.Callback() {
         @Override
-        public boolean tryCaptureView(@NonNull View view, int i) {
+        public boolean tryCaptureView(View view, int i) {
             return mMainView==view;
         }
 
