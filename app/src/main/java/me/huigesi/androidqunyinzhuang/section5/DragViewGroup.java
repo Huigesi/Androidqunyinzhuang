@@ -83,7 +83,7 @@ public class DragViewGroup extends FrameLayout{
                 );
                 ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
             }else {
-                mViewDragHelper.smoothSlideViewTo(mMainView, 300, 0);
+                mViewDragHelper.smoothSlideViewTo(mMainView, 800, 0);
                 ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
             }
         }
