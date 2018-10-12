@@ -6,34 +6,30 @@ import android.graphics.Color;
 import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PathDashPathEffect;
-import android.graphics.PathEffect;
-import android.graphics.PixelFormat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Callback,Runnable{
+public class SurfaceViewPaint extends SurfaceView implements SurfaceHolder.Callback,Runnable{
 
     private SurfaceHolder mHolder;
     private Canvas mCanvas;
     private boolean mIsDrawing;
-    int x=0, y=0;
-    private Path  mPath;
+    private Path mPath;
     private Paint mPaint;
 
-
-    public SurfaceViewTemplate(Context context) {
+    public SurfaceViewPaint(Context context) {
         super(context);
         initView();
     }
 
-    public SurfaceViewTemplate(Context context, AttributeSet attrs) {
+    public SurfaceViewPaint(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
 
-    public SurfaceViewTemplate(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SurfaceViewPaint(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView();
     }
@@ -57,7 +53,6 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         mIsDrawing=true;
-        mPath.moveTo(0,400);
         new Thread(this).start();
     }
 
@@ -73,19 +68,22 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void run() {
-
+        long start = System.currentTimeMillis();
         while (mIsDrawing) {
-            mPath.moveTo(x,y+1f);
             draw();
-            x+=1;
-            y = (int) (100 * Math.sin(x * 2 * Math.PI / 180) + 400);
-            mPath.lineTo(x, y);
+        }
+        long end=System.currentTimeMillis();
+        if (end-start<100){
+            try {
+                Thread.sleep(100 - (end - start));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void draw() {
         try {
-            mPaint.setPathEffect(new CornerPathEffect(30));
             mCanvas = mHolder.lockCanvas();
             mCanvas.drawColor(Color.WHITE);
             mCanvas.drawPath(mPath,mPaint);
@@ -95,5 +93,22 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
                 mHolder.unlockCanvasAndPost(mCanvas);
             }
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mPath.moveTo(x, y);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mPath.lineTo(x, y);
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+        }
+        return true;
     }
 }
