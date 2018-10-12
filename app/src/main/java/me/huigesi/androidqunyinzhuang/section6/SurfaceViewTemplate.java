@@ -3,7 +3,9 @@ package me.huigesi.androidqunyinzhuang.section6;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ComposePathEffect;
 import android.graphics.CornerPathEffect;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathDashPathEffect;
@@ -50,7 +52,7 @@ public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Ca
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(10);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        //mPaint.setStrokeJoin(Paint.Join.ROUND);
         //mHolder.setFormat(PixelFormat.OPAQUE);
     }
 
