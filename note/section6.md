@@ -92,5 +92,55 @@ Android中，系统使用一个颜色矩阵——ColorMatrix，来处理图像�
 
 #### 6.5.2 Android颜色矩阵--ColorMatrix
 
+一个颜色矩阵改变图片的实例
 
+#### 6.5.3 常用图像颜色矩阵处理效果
+
+#### 6.5.4 像素点分析
+
+系统提供了Bitmap.getPixels()方法来帮我们提取整个Bitmap中的像素点，并保存到一个数组中。
+
+#### 6.5.3 常用像素点处理效果
+
+## 6.6 Android 图像处理之图形特效处理
+
+## 6.7 Android 图像处理之画笔特效处理
+
+#### 6.7.1 PorterDuffXfermode
+
+PorterDuffXfermode设置的是两个图层交集区域的显示方式。
+
+#### 6.7.2 Shader
+
+Shader用来实现一系列的渐变、渲染效果。
+
+#### PathEffect
+
+PathEffect指用各种笔触效果来绘制一个路径。
+
+## 6.8 View之孪生兄弟--SurfaceView
+
+#### 6.8.1 SurfaceView与View的区别
+
+View通过刷新来重绘视图，Android系统通过发出VSYNC信号来进行屏幕的重绘，
+刷新的间隔时间为16ms。如果16ms内View没有完成所需要执行的所有操作，
+那么用户在视觉上就会产生卡顿。
+
+SurfaceView用来解决刷新的问题。
+
+区别：
+
+View主要适用于主动更新，而SurfaceView主要适用于被动更新。
+
+View在主线程对画面进行刷新，而SurfaceView通常会通过子线程刷新。
+
+View绘图时没有双缓冲机制，而SurfaceView在底层就已经实现了双缓冲机制。
+
+
+#### 6.8.2 SurfaceView的使用
+
+SurfaceView通常套用模板来进行编写。
+
+
+#### 6.8.3 SurfaceView实例
 
